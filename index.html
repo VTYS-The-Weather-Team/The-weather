@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arka Plan Resmi</title>
+    <title>Canlı Hava Durumu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Üst Menü -->
+<header>
+    <div class="header-content">
+        <div class="logo">
+            <img src="images/unnamed.png" alt="Logo" id="logo">
+        </div>
+        <div class="search-bar">
+            <input type="text" id="city-input" placeholder="Şehir Ara...">
+            <button id="search-button">Ara</button>
+        </div>
+        <div class="user-actions">
+            <button id="login-button">Giriş</button>
+            <button id="register-button">Kayıt Ol</button>
+            <div class="language">
+                <img src="images/tr.png" alt="TR" id="flag">
+                <button id="language-button"> TR </button> <!-- Dil değişim butonu -->
+            </div>
+            <!-- Menü Çubuğu İkonu -->
+            <div class="menu-icon" id="menu-icon">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </div>
+</header>
+
+    <!-- Ana İçerik -->
+    <main>
+        <!-- Üst Şerit - Diğer Şehirler Hava Durumu -->
+<section class="city-weather-strip">
+    <div class="city-weather" id="city1">
+        <p>Şehir 1</p>
+        <p>--°C</p>
+        <img src="" alt="Şehir 1 hava durumu ikonu">
+    </div>
+    <div class="city-weather" id="city2">
+        <p>Şehir 2</p>
+        <p>--°C</p>
+        <img src="" alt="Şehir 2 hava durumu ikonu">
+    </div>
+    <div class="city-weather" id="city3">
+        <p>Şehir 3</p>
+        <p>--°C</p>
+        <img src="" alt="Şehir 3 hava durumu ikonu">
+    </div>
+</section>
+</style>
+
+<!-- HTML: Mevcut Bölge ve Tarih/Saat Bilgileri -->
+<section class="current-weather">
+    <h2 id="city-name">Şehir İsmi</h2>
+    <p id="region-info">Bölge Bilgisi...</p>
+    <p id="date-time">Güncel Tarih ve Saat</p>
+    <div class="weather-info">
+        <img id="weather-icon" src="" alt="Hava durumu ikonu">
+        <p><span id="temperature">--°C</span></p>
+        <p id="description">Hava durumu açıklaması...</p>
+    </div>
+</section>
+
+        </section>
+
+        <!-- Günlük Tahmin -->
+         
+        <section class="daily-forecast">
+            <div class="forecast-box" id="forecast-morning">
+                <h3>Sabah</h3>
+                <img src="" alt="Sabah ikonu" class="forecast-icon">
+                <p class="forecast-temperature">--°C</p>
+            </div>
+            <div class="forecast-box" id="forecast-noon">
+                <h3>Öğle</h3>
+                <img src="" alt="Öğle ikonu" class="forecast-icon">
+                <p class="forecast-temperature">--°C</p>
+            </div>
+            <div class="forecast-box" id="forecast-evening">
+                <h3>Akşam</h3>
+                <img src="" alt="Akşam ikonu" class="forecast-icon">
+                <p class="forecast-temperature">--°C</p>
+            </div>
+            <div class="forecast-box" id="forecast-night">
+                <h3>Gece</h3>
+                <img src="" alt="Gece ikonu" class="forecast-icon">
+                <p class="forecast-temperature">--°C</p>
+            </div>
+        </section>
+    </main>
+
+    <!-- Ekstra Bilgiler -->
+    <section class="extra-info">
+        <div class="info-box" id="rain-chance">
+            <p>Yağış İhtimali: --%</p>
+        </div>
+        <div class="info-box" id="humidity">
+            <p>Nem: --%</p>
+        </div>
+        <div class="info-box" id="uv-index">
+            <p>UV Endeksi: --</p>
+        </div>
+        <div class="info-box" id="wind-speed">
+            <p>Rüzgar: -- m/s</p>
+        </div>
+        <div class="info-box" id="pressure">
+            <p>Basınç: -- hPa</p>
+        </div>
+    </section>
+
+    <!-- Alt Bilgi -->
+    <footer>
+        <p id="last-update">Son Güncelleme: --</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
