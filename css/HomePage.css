@@ -6,7 +6,7 @@
 }
 
 body { 
-    background-image: url('images/gorsel.jpg'); /* Arka plan resminin yolu */
+    background-image: url('../images/gorsel.jpg'); /* Arka plan resminin yolu */
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
