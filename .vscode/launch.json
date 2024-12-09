@@ -7,9 +7,8 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Chrome'u localhost'ta başlat",
-            "url": "file:///C:/Users/sabih/OneDrive/Desktop/The-Weather-S/index.html",
-            "webRoot": "${workspaceFolder}"
+            "name": "Open index.html",
+            "file": "C:/Users/sabih/OneDrive/Desktop/The-Weather-S/index.html"
         }
     ]
 }
