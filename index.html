@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hava Durumu Web Sitesi</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <script>
+        function searchWeather() {
+            const city = document.getElementById('cityInput').value.trim();
+            if (city) {
+                // Örneğin, hava durumu verilerini alacağınız API'nin URL'sini kullanabilirsiniz.
+                const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=YOUR_API_KEY&units=metric`;
+    
+                // API çağrısı
+                fetch(weatherUrl)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.cod === 200) {
+                            alert(`Hava durumu: ${data.weather[0].description}, Sıcaklık: ${data.main.temp}°C`);
+                        } else {
+                            alert('Şehir bulunamadı veya hava durumu verisi alınamadı.');
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Hata:', error);
+                        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+                    });
+            } else {
+                alert('Lütfen bir şehir adı girin.');
+            }
+        }
+    </script>
+    
+    <nav class="navbar">
+        <div class="logo">
+            <img src="images/unnamed.png" alt="Logo">
+        </div>
+        <div class="search-city">
+            <input type="text" placeholder="Şehir Ara">
+            <button class="search-btn">Ara</button>
+        </div>
+        <div class="user-actions">
+            <a href="#signup">Kayıt Ol</a>
+            <a href="#login">Giriş Yap</a>
+
+            <!-- Türk Bayrağı ve dil seçimi -->
+<div class="language-selector">
+    <img src="images/tr.png" alt="Türk Bayrağı" class="flag-icon">
+    <a href="#" class="language-link" onclick="showLanguageOptions()">TR</a>
+</div>
+
+<!-- JavaScript ile dil seçim seçeneklerini gösteren bir fonksiyon -->
+<script>
+    function showLanguageOptions() {
+        // Burada dil seçim seçeneklerini açacak kodu ekleyebilirsiniz.
+        alert('Dil seçenekleri gösterilecek.');
+    }
+</script>
+
+            <button class="menu-btn">☰</button>
+        </div>
+        
+    </nav>
+</div>
+
+    <!-- Ana İçerik -->
+    <main>
+        <!-- Üst Şerit - Diğer Şehirler Hava Durumu -->
+<section class="city-weather-strip">
+    <div class="city-weather" id="city1">
+        <p>Şehir 1</p>
+        <p>--°C</p>
+        <img src="" alt="Şehir 1 hava durumu ikonu">
+    </div>
+    <div class="city-weather" id="city2">
+        <p>Şehir 2</p>
+        <p>--°C</p>
+        <img src="" alt="Şehir 2 hava durumu ikonu">
+    </div>
+    <div class="city-weather" id="city3">
+        <p>Şehir 3</p>
+        <p>--°C</p>
+        <img src="" alt="Şehir 3 hava durumu ikonu">
+    </div>
+</section>
+</style>
+
+<!-- Mevcut Bölge ve Tarih/Saat Bilgileri -->
+<section class="current-weather">
+    <h2 id="city-name">Şehir İsmi</h2>
+    <p id="region-info">Bölge Bilgisi...</p>
+    <p id="date-time">Güncel Tarih ve Saat</p>
+    <div class="weather-info">
+        <img id="weather-icon" src="" alt="Hava durumu ikonu">
+        <p><span id="temperature">--°C</span></p>
+        <p id="description">Hava durumu açıklaması...</p>
+    </div>
+</section>
+        </section>
+
+        <!-- Günlük Tahmin -->
+         
+        <section class="daily-forecast">
+            <div class="forecast-box" id="forecast-morning">
+                <h3>Sabah</h3>
+                <img src="" alt="Sabah ikonu" class="forecast-icon">
+                <p class="forecast-temperature">--°C</p>
+            </div>
+            <div class="forecast-box" id="forecast-noon">
+                <h3>Öğle</h3>
+                <img src="" alt="Öğle ikonu" class="forecast-icon">
+                <p class="forecast-temperature">--°C</p>
+            </div>
+            <div class="forecast-box" id="forecast-evening">
+                <h3>Akşam</h3>
+                <img src="" alt="Akşam ikonu" class="forecast-icon">
+                <p class="forecast-temperature">--°C</p>
+            </div>
+            <div class="forecast-box" id="forecast-night">
+                <h3>Gece</h3>
+                <img src="" alt="Gece ikonu" class="forecast-icon">
+                <p class="forecast-temperature">--°C</p>
+            </div>
+        </section>
+    </main>
+    
+    <!-- Ekstra Bilgiler -->
+     
+<section class="extra-info">
+    <div class="info-box" id="humidity">
+        <p>Nem: --%</p>
+    </div>
+    <div class="info-box" id="wind-speed">
+        <p>Rüzgar: -- m/s</p>
+    </div>
+    <div class="info-box" id="pressure">
+        <p>Basınç: -- hPa</p>
+    </div>
+</section>
+
+    <!-- Alt Bilgi -->
+    <footer>
+        <p id="last-update">Son Güncelleme: --</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+    </section>
+
+    <section id="saatlik">
+        <h1>Saatlik Hava Durumu</h1>
+        <div class="hourly-forecast">
+
+            <!--  saatlik hava durumu verisi -->
+            <div class="weather-table">
+                <style>
+                    .weather-table {
+                        margin: 20px;
+                    }
+                    table {
+                        width: 100%;
+                        border-collapse: collapse;
+                    }
+                    th, td {
+                        border: 1px solid #ddd;
+                        padding: 8px;
+                        text-align: center;
+                    }
+                    th {
+                        background-color: #f4f4f4;
+                    }
+                    .hidden {
+                        display: none;
+                    }
+                    .toggle-button {
+                        margin: 10px 0;
+                        padding: 10px;
+                        background-color: #007BFF;
+                        color: white;
+                        border: none;
+                        cursor: pointer;
+                        border-radius: 5px;
+                    }
+                    .toggle-button:hover {
+                        background-color: #0056b3;
+                    }
+                </style>
+            
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Zaman</th>
+                            <th>Sıcaklık</th>
+                            <th>Yağış İhtimali</th>
+                            <th>Yağış</th>
+                            <th>Basınç</th>
+                            <th>Nem</th>
+                            <th>Rüzgar</th>
+                        </tr>
+                    </thead>
+                    <tbody id="weather-tbody">
+                        
+                        <!-- İlk 8 saatlik veriler -->
+                        <tr>
+                            <td>00:00</td>
+                            <td>-13°C</td>
+                            <td>0%</td>
+                            <td>0.07 mm</td>
+                            <td>737 mmHg</td>
+                            <td>80%</td>
+                            <td>3 m/s</td>
+                        </tr>
+                        <tr>
+                            <td>01:00</td>
+                            <td>-13°C</td>
+                            <td>0%</td>
+                            <td>0.07 mm</td>
+                            <td>737 mmHg</td>
+                            <td>80%</td>
+                            <td>3 m/s</td>
+                        </tr>
+                        <tr>
+                            <td>02:00</td>
+                            <td>-12°C</td>
+                            <td>0%</td>
+                            <td>0 mm</td>
+                            <td>736 mmHg</td>
+                            <td>82%</td>
+                            <td>2 m/s</td>
+                        </tr>
+                        <tr>
+                            <td>03:00</td>
+                            <td>-12°C</td>
+                            <td>0%</td>
+                            <td>0.08 mm</td>
+                            <td>736 mmHg</td>
+                            <td>82%</td>
+                            <td>2 m/s</td>
+                        </tr>
+                        <tr>
+                            <td>04:00</td>
+                            <td>-11°C</td>
+                            <td>0%</td>
+                            <td>0.08 mm</td>
+                            <td>736 mmHg</td>
+                            <td>82%</td>
+                            <td>2 m/s</td>
+                        </tr>
+                        <tr>
+                            <td>05:00</td>
+                            <td>-12°C</td>
+                            <td>6%</td>
+                            <td>0.07 mm</td>
+                            <td>738 mmHg</td>
+                            <td>78%</td>
+                            <td>2 m/s</td>
+                        </tr>
+                        <tr>
+                            <td>06:00</td>
+                            <td>-12°C</td>
+                            <td>6%</td>
+                            <td>0.09 mm</td>
+                            <td>738 mmHg</td>
+                            <td>76%</td>
+                            <td>2 m/s</td>
+                        </tr>
+                        <tr>
+                            <td>07:00</td>
+                            <td>-14°C</td>
+                            <td>20%</td>
+                            <td>0.09 mm</td>
+                            <td>737 mmHg</td>
+                            <td>75%</td>
+                            <td>3 m/s</td>
+                        </tr>
+                        <tr>
+                            <td>08:00</td>
+                            <td>-15°C</td>
+                            <td>20%</td>
+                            <td>0.16 mm</td>
+                            <td>739 mmHg</td>
+                            <td>71%</td>
+                            <td>3 m/s</td>
+                        </tr>
+                    </tbody>
+                </table>
+            
+                <!-- Gizli veriler için buton -->
+                <button class="toggle-button" onclick="toggleMoreData()">Gizli Verileri Göster</button>
+            
+                <!-- Gizli 16 saatlik veriler -->
+                <div id="hidden-data" class="hidden">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>09:00</td>
+                                <td>-16°C</td>
+                                <td>25%</td>
+                                <td>0.18 mm</td>
+                                <td>740 mmHg</td>
+                                <td>69%</td>
+                                <td>4 m/s</td>
+                            </tr>
+                            <tr>
+                                <td>10:00</td>
+                                <td>-16°C</td>
+                                <td>25%</td>
+                                <td>0.18 mm</td>
+                                <td>740 mmHg</td>
+                                <td>67%</td>
+                                <td>4 m/s</td>
+                            </tr>
+                            <tr>
+                                <td>11:00</td>
+                                <td>-15°C</td>
+                                <td>30%</td>
+                                <td>0.20 mm</td>
+                                <td>741 mmHg</td>
+                                <td>65%</td>
+                                <td>3 m/s</td>
+                            </tr>
+                            <tr>
+                                <td>12:00</td>
+                                <td>-14°C</td>
+                                <td>40%</td>
+                                <td>0.25 mm</td>
+                                <td>741 mmHg</td>
+                                <td>63%</td>
+                                <td>3 m/s</td>
+                            </tr>
+                            <tr>
+                                <td>13:00</td>
+                                <td>-13°C</td>
+                                <td>35%</td>
+                                <td>0.22 mm</td>
+                                <td>742 mmHg</td>
+                                <td>62%</td>
+                                <td>3 m/s</td>
+                            </tr>
+                            <tr>
+                                <td>14:00</td>
+                                <td>-12°C</td>
+                                <td>40%</td>
+                                <td>0.23 mm</td>
+                                <td>742 mmHg</td>
+                                <td>60%</td>
+                                <td>3 m/s</td>
+                            </tr>
+                            <tr>
+                                <td>15:00</td>
+                                <td>-11°C</td>
+                                <td>45%</td>
+                                <td>0.25 mm</td>
+                                <td>743 mmHg</td>
+                                <td>58%</td>
+                                <td>3 m/s</td>
+                            </tr>
+                            <tr>
+                                <td>16:00</td>
+                                <td>-10°C</td>
+                                <td>50%</td>
+                                <td>0.27 mm</td>
+                                <td>743 mmHg</td>
+                                <td>55%</td>
+                                <td>3 m/s</td>
+                            </tr>
+                            <tr>
+                                <td>17:00</td>
+                                <td>-9°C</td>
+                                <td>55%</td>
+                                <td>0.30 mm</td>
+                                <td>744 mmHg</td>
+                                <td>53%</td>
+                                <td>4 m/s</td>
+                            </tr>
+                            <tr>
+                                <td>18:00</td>
+                                <td>-8°C</td>
+                                <td>60%</td>
+                                <td>0.32 mm</td>
+                                <td>744 mmHg</td>
+                                <td>50%</td>
+                                <td>4 m/s</td>
+                            </tr>
+                            <tr>
+                                <td>19:00</td>
+                                <td>-7°C</td>
+                                <td>65%</td>
+                                <td>0.35 mm</td>
+                                <td>745 mmHg</td>
+                                <td>48%</td>
+                                <td>4 m/s</td>
+                            </tr>
+                            <tr>
+                                <td>20:00</td>
+                                <td>-6°C</td>
+                                <td>70%</td>
+                                <td>0.38 mm</td>
+                                <td>745 mmHg</td>
+                                <td>45%</td>
+                                <td>4 m/s</td>
+                            </tr>
+                            <tr>
+                                <td>21:00</td>
+                                <td>-5°C</td>
+                                <td>75%</td>
+                                <td>0.40 mm</td>
+                                <td>746 mmHg</td>
+                                <td>43%</td>
+                                <td>4 m/s</td>
+                            </tr>
+                            <tr>
+                                <td>22:00</td>
+                                <td>-4°C</td>
+                                <td>80%</td>
+                                <td>0.42 mm</td>
+                                <td>746 mmHg</td>
+                                <td>40%</td>
+                                <td>4 m/s</td>
+                            </tr>
+                            <tr>
+                                <td>23:00</td>
+                                <td>-3°C</td>
+                                <td>85%</td>
+                                <td>0.45 mm</td>
+                                <td>747 mmHg</td>
+                                <td>38%</td>
+                                <td>4 m/s</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            
+                <script>
+                    function toggleMoreData() {
+                        const hiddenData = document.getElementById("hidden-data");
+                        hiddenData.classList.toggle("hidden");
+                        const button = document.querySelector(".toggle-button");
+                        button.textContent = hiddenData.classList.contains("hidden") ? "Gizli Verileri Göster" : "Gizli Verileri Gizle";
+                    }
+                </script>
+            </div>
+        
+        <!-- Saatlik hava durumu grafiği -->
+        <h1>Saatlik Grafiği</h1>
+        <div class="chart-container">
+            <canvas id="hourly-chart"></canvas>
+        </div>
+    </section>
+    
+     <!-- haftalık hava durumu -->
+    <section id="haftalik">
+        <h1>Haftalık Hava Durumu</h1>
+        <div class="weekly-forecast">
+            <div class="day">
+                <p class="day-name">Pazartesi</p>
+                <p class="date">02 Aralık</p>
+                <div class="temp-icon">
+                    <img src="rain-icon.png" alt="Yağmurlu">
+                    <p class="temp">20°C / 14°C</p>
+                </div>
+                <p class="weather-condition">Yağmurlu</p>
+            </div>
+            <div class="day">
+                <p class="day-name">Salı</p>
+                <p class="date">03 Aralık</p>
+                <div class="temp-icon">
+                    <img src="cloud-icon.png" alt="Bulutlu">
+                    <p class="temp">22°C / 15°C</p>
+                </div>
+                <p class="weather-condition">Bulutlu</p>
+            </div>
+            <div class="day">
+                <p class="day-name">Çarşamba</p>
+                <p class="date">04 Aralık</p>
+                <div class="temp-icon">
+                    <img src="sun-icon.png" alt="Güneşli">
+                    <p class="temp">24°C / 17°C</p>
+                </div>
+                <p class="weather-condition">Güneşli</p>
+            </div>
+            <div class="day">
+                <p class="day-name">Perşembe</p>
+                <p class="date">05 Aralık</p>
+                <div class="temp-icon">
+                    <img src="rain-icon.png" alt="Yağmurlu">
+                    <p class="temp">19°C / 12°C</p>
+                </div>
+                <p class="weather-condition">Yağmurlu</p>
+            </div>
+            <div class="day">
+                <p class="day-name">Cuma</p>
+                <p class="date">06 AralıK</p>
+                <div class="temp-icon">
+                    <img src="cloud-icon.png" alt="Bulutlu">
+                    <p class="temp">18°C / 11°C</p>
+                </div>
+                <p class="weather-condition">Bulutlu</p>
+            </div>
+            <div class="day">
+                <p class="day-name">Cumartesi</p>
+                <p class="date">07 Aralık</p>
+                <div class="temp-icon">
+                    <img src="sun-icon.png" alt="Güneşli">
+                    <p class="temp">23°C / 16°C</p>
+                </div>
+                <p class="weather-condition">Güneşli</p>
+            </div>
+            <div class="day">
+                <p class="day-name">Pazar</p>
+                <p class="date">08 Aralık</p>
+                <div class="temp-icon">
+                    <img src="rain-icon.png" alt="Yağmurlu">
+                    <p class="temp">21°C / 14°C</p>
+                </div>
+                <p class="weather-condition">Yağmurlu</p>
+            </div>
+        </div>
+    </section>
+    
+        <!-- Haftalık hava durumu grafiği -->
+        <h1>Haftalık Grafiği</h1>
+        <div class="chart-container">
+            <canvas id="weekly-chart"></canvas>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+
+        //  saatlik grafik
+var ctxHourly = document.getElementById('hourly-chart').getContext('2d');
+var hourlyChart = new Chart(ctxHourly, {
+    type: 'line',
+    data: {
+        labels: [
+            '08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', 
+            '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'
+        ],
+        datasets: [{
+            label: 'Sıcaklık (°C)',
+            data: [15, 17, 19, 21, 23, 24, 25, 24, 23, 21, 19, 17, 15], 
+            borderColor: 'rgba(255, 159, 64, 1)',
+            borderWidth: 2,
+            fill: false
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            x: {
+                beginAtZero: false,
+                title: {
+                    display: true,
+                    text: 'Saat'
+                }
+            },
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Sıcaklık (°C)'
+                }
+            }
+        }
+    }
+});
+        // haftalık grafik
+        var ctxWeekly = document.getElementById('weekly-chart').getContext('2d');
+        var weeklyChart = new Chart(ctxWeekly, {
+            type: 'bar',
+            data: {
+                labels: ['Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi', 'Pazar'],
+                datasets: [{
+                    label: 'Günlük Ortalama Sıcaklık (°C)',
+                    data: [20, 22, 24, 19, 18, 23, 21],
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        beginAtZero: false
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Sıcaklık (°C)'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
