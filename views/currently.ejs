@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anlık Hava Durumu</title>
+    <link rel="stylesheet" href="/css/currently.css">
+</head>
+<body>
+
+    <form action="/update-weather" method="GET" style="margin-bottom: 20px;">
+        <label for="city_name">Şehir Adı:</label>
+        <input type="text" id="city_name" name="city" required>
+        <button type="submit">Ara</button>
+    </form>
+
+    <h2><%= weatherData.city_name %> için Anlık Hava Durumu</h2>
+    <table>
+        <tbody>
+            <tr>
+                <th>Sıcaklık</th>
+                <td><%= weatherData.current_weather.sıcaklık %> °C</td>
+            </tr>
+            <tr>
+                <th>Hissedilen Sıcaklık</th>
+                <td><%= weatherData.current_weather.hissedilen_sıcaklık %> °C</td>
+            </tr>
+            <tr>
+                <th>Hava Durumu</th>
+                <td><%= weatherData.current_weather.hava_durumu_bilgisi %></td>
+            </tr>
+            <tr>
+                <th>Nem</th>
+                <td><%= weatherData.current_weather.nem %> %</td>
+            </tr>
+            <tr>
+                <th>Basınç</th>
+                <td><%= weatherData.current_weather.basınç %> mb</td>
+            </tr>
+            <tr>
+                <th>Rüzgar</th>
+                <td><%= weatherData.current_weather.rüzgar %> km/h</td>
+            </tr>
+            <tr>
+                <th>Güncelleme Zamanı</th>
+                <td><%= new Date(weatherData.current_weather.güncelleme_zamanı).toLocaleString() %></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

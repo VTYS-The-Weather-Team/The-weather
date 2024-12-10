@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haftalık Hava Durumu</title>
+    <link rel="stylesheet" href="/css/weekly.css">
+</head>
+<body>
+
+    <form action="/update-weather" method="GET" style="margin-bottom: 20px;">
+        <label for="city_name">Şehir Adı:</label>
+        <input type="text" id="city_name" name="city" required>
+        <button type="submit">Ara</button>
+    </form>
+
+    <h2><%= weatherData.city_name %> için Haftalık Hava Durumu</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Gün</th>
+                <th>Sabah Sıcaklık</th>
+                <th>Gece Sıcaklık</th>
+                <th>Durum</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% weatherData.weekly_weather.forEach((day, index) => { %>
+                <tr>
+                    <td>
+                        <% 
+                            const currentDate = new Date();
+                            currentDate.setDate(currentDate.getDate() + index); // Calculate date for each day
+                            const options = { day: 'numeric', month: 'long' };
+                            const formattedDate = currentDate.toLocaleDateString('tr-TR', options);
+                        %>
+                        <%= formattedDate %>
+                    </td>
+                    <td><%= day.sabah_sıcaklık %> °C</td>
+                    <td><%= day.gece_sıcaklık %> °C</td>
+                    <td><img src="http://openweathermap.org/img/wn/<%= day.hava_durumu_ikonu %>@2x.png" alt="Weather Icon" style="width:30px; height:auto;"></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hava Durumu Uygulaması</title>
+</head>
+<body>
+    <style>
+        body {
+            display: flex;
+            background-color: #cbe3ed;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        form {
+            margin-top: 30px;
+        }
+
+        label {
+            font-size: 18px; /* Şehir adı etiketinin boyutu */
+            margin-right: 10px;
+        }
+        input[type="text"] {
+            font-size: 16px; /* Metin kutusunun font boyutu */
+            padding: 7px;
+            width: 220px; /* Metin kutusunun genişliği */
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            font-size: 15px; /* Butonun font boyutu */
+            padding: 7px 16px;
+            background-color: #4CAF50; /* Butonun arka plan rengi */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: -10px;
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background-color: #45a049; /* Butonun hover rengi */
+        }
+
+        .weather-icon1 {
+            width: 110px;
+            height: auto;
+            margin-top: -1px;
+            margin-bottom: -27px;
+        }
+
+        .weather-icon {
+            margin-top: 10;
+            width: 100px;
+            height: auto;
+        }
+        #weeklybutton{
+            margin-bottom: 50px;
+        }
+
+        
+    </style>
+
+
+    <form action="/update-weather" method="GET">
+        <label for="city_name">Şehir Adı:</label>
+        <input type="text" id="city_name" name="city" required>
+        <button type="submit">Ara</button>
+    </form>
+    
+
+    <% if (weatherData && weatherData.current_weather.hava_durumu_ikonu) { %>
+        <img src="<%= weatherData.current_weather.hava_durumu_ikonu %>" alt="Hava Durumu İkonu" class="weather-icon1">
+    <% } %>
+
+
+
+    <% if (error) { %>
+        <p style="color: red;"><%= error %></p>
+    <% } %>
+
+    <% if (weatherData) { %>
+        <h2><%= weatherData.city_name %> için Güncel Hava Durumu</h2>
+        <table>
+            <tr><th>Sıcaklık</th><td><%= weatherData.current_weather.sıcaklık %> °C</td></tr>
+            <tr><th>Hissedilen Sıcaklık</th><td><%= weatherData.current_weather.hissedilen_sıcaklık %> °C</td></tr>
+            <tr><th>Hava Durumu</th><td><%= weatherData.current_weather.hava_durumu_bilgisi %></td></tr>
+            <tr><th>Nem</th><td><%= weatherData.current_weather.nem %> %</td></tr>
+            <tr><th>Basınç</th><td><%= weatherData.current_weather.basınç %> mb</td></tr>
+            <tr><th>Rüzgar</th><td><%= weatherData.current_weather.rüzgar %> km/h</td></tr>
+            <tr><th>Güncelleme Zamanı</th><td><%= new Date(weatherData.current_weather.güncelleme_zamanı).toLocaleString() %></td></tr>
+        </table>
+
+        <button onclick="location.href='/currently?city=<%= weatherData.city_name %>'">Anlık Detaylar</button>
+
+        <h2><%= weatherData.city_name %> için Saatlik Hava Durumu</h2>
+        <table>
+            <thead>
+                <tr><th>Saat</th><th>Sıcaklık</th><th>Nem</th><th>Basınç</th><th>Rüzgar</th><th>Yağış</th><th>Yağış İhtimali</th><th>Durum</th></tr>
+            </thead>
+            <tbody>
+                <% weatherData.hourly_weather.forEach(hour => { %>
+                    <tr>
+                        <td><%= hour.saat %></td>
+                        <td><%= hour.sıcaklık %> °C</td>
+                        <td><%= hour.nem %> %</td>
+                        <td><%= hour.basınç %> mb</td>
+                        <td><%= hour.rüzgar %> km/h</td>
+                        <td><%= hour.yağış %> mm</td>
+                        <td><%= hour.yağış_ihtimali %> %</td>
+                        <td><img src="<%= hour.hava_durumu_ikonu %>" alt="Weather Icon" class="weather-icon" style="width:35px; height:auto;"></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <button onclick="location.href='/hourly?city=<%= weatherData.city_name %>'">Saatlik Detaylar</button>
+
+        <!-- Haftalık Hava Durumu Tablosu -->
+        <h2><%= weatherData.city_name %> için Haftalık Hava Durumu</h2>
+        <table>
+            <thead>
+                <tr><th>Gün</th><th>Sabah Sıcaklık</th><th>Gece Sıcaklık</th><th>Durum</th></tr>
+            </thead>
+            <tbody>
+                <% weatherData.weekly_weather.forEach((day, index) => { %>
+                    <tr>
+                        <td>
+                            <% 
+                                const currentDate = new Date();
+                                currentDate.setDate(currentDate.getDate() + index); // Add 'index' days to the current date
+                                const options = { day: 'numeric', month: 'long' };
+                                const formattedDate = currentDate.toLocaleDateString('tr-TR', options);
+                            %>
+                            <%= formattedDate %>
+                        </td>
+                        <td><%= day.sabah_sıcaklık %> °C</td>
+                        <td><%= day.gece_sıcaklık %> °C</td>
+                        <td><img src="http://openweathermap.org/img/wn/<%= day.hava_durumu_ikonu %>@2x.png" alt="Weather Icon" style="width:30px; height:auto;"></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+
+        <button id="weeklybutton" onclick="location.href='/weekly?city=<%= weatherData.city_name %>'">Haftalık Detaylar</button>
+    <% } %>
+</body>
+</html>

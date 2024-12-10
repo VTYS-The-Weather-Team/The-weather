@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saatlik Hava Durumu</title>
+    <link rel="stylesheet" href="/css/hourly.css">
+</head>
+<body>
+
+    <form action="/update-weather" method="GET" style="margin-bottom: 20px;">
+        <label for="city_name">Şehir Adı:</label>
+        <input type="text" id="city_name" name="city" required>
+        <button type="submit">Ara</button>
+    </form>
+
+    <h2><%= weatherData.city_name %> için Saatlik Hava Durumu</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Saat</th>
+                <th>Sıcaklık</th>
+                <th>Nem</th>
+                <th>Basınç</th>
+                <th>Rüzgar</th>
+                <th>Yağış</th>
+                <th>Durum</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% weatherData.hourly_weather.forEach(hour => { %>
+                <tr>
+                    <td><%= hour.saat %></td>
+                    <td><%= hour.sıcaklık %> °C</td>
+                    <td><%= hour.nem %> %</td>
+                    <td><%= hour.basınç %> hPa</td>
+                    <td><%= hour.rüzgar %> km/h</td>
+                    <td><%= hour.yağış %> mm (<%= hour.yağış_ihtimali %>%)</td>
+                    <td><img src="<%= hour.hava_durumu_ikonu %>" alt="Weather Icon"></td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <script src="/js/hourly.js"></script>
+</body>
+</html>
